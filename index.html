@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Siachen Mark — Google Maps GBP Data Scraping & Audit Tool</title>
+  <meta name="description" content="Siachen Mark is a professional Google Business Profile (GBP) audit and data scraping tool. Analyze, score, and download reports for any business on Google Maps.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ── Navigation ─────────────────────────────────────────── -->
+<nav class="navbar" id="navbar">
+  <div class="nav-container">
+    <a href="index.html" class="nav-brand">
+      <span class="nav-logo">🏔</span>
+      <span>Siachen Mark</span>
+    </a>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#how-it-works">How It Works</a>
+      <a href="#pricing">Pricing</a>
+      <a href="login.html" class="nav-login">Login</a>
+      <a href="login.html?mode=register" class="nav-cta">Get Started Free</a>
+    </div>
+    <button class="nav-hamburger" id="hamburger">☰</button>
+  </div>
+</nav>
+
+<!-- ── Hero Section ───────────────────────────────────────── -->
+<section class="hero">
+  <div class="hero-bg">
+    <div class="hero-orb orb-1"></div>
+    <div class="hero-orb orb-2"></div>
+    <div class="hero-orb orb-3"></div>
+    <div class="grid-overlay"></div>
+  </div>
+
+  <div class="hero-content container">
+    <div class="hero-badge">
+      <span class="badge-dot"></span>
+      Chrome Extension + Web Dashboard
+    </div>
+
+    <h1 class="hero-title">
+      Full GBP Audit on
+      <span class="hero-gradient">Google Maps</span>
+      — Like a Pro
+    </h1>
+
+    <p class="hero-desc">
+      Siachen Mark scrapes, analyzes, and scores every Google Business Profile on your search. Get detailed audit reports, ranking factors, and download individual or bulk reports — just like GBP Everywhere, but more powerful.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#" class="btn-hero-primary" id="btn-install-ext">
+        <span>🔌</span> Install Chrome Extension — Free
+      </a>
+      <a href="login.html" class="btn-hero-secondary">
+        View Dashboard
+      </a>
+    </div>
+
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="stat-number">100</span>
+        <span class="stat-label">Point GBP Score</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="hero-stat">
+        <span class="stat-number">11</span>
+        <span class="stat-label">Audit Categories</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="hero-stat">
+        <span class="stat-number">∞</span>
+        <span class="stat-label">Reports (Pro)</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating audit card preview -->
+  <div class="hero-preview container">
+    <div class="preview-card">
+      <div class="preview-header">
+        <div class="preview-dots">
+          <span style="background:#EF4444"></span>
+          <span style="background:#F59E0B"></span>
+          <span style="background:#10B981"></span>
+        </div>
+        <span class="preview-title">🏔 Siachen Mark — GBP Audit</span>
+      </div>
+      <div class="preview-body">
+        <div class="preview-biz">
+          <div class="preview-rank">#1</div>
+          <div class="preview-biz-info">
+            <div class="preview-biz-name">Khan's Restaurant Lahore</div>
+            <div class="preview-biz-cat">Restaurant · ★ 4.3 (289 reviews)</div>
+          </div>
+          <div class="preview-score" style="color:#10B981;">82<span>/100</span></div>
+        </div>
+        <div class="preview-bars">
+          <div class="pb-row"><span>Reviews</span><div class="pb-bg"><div class="pb-fill" style="width:85%;background:#10B981"></div></div><span>17/20</span></div>
+          <div class="pb-row"><span>Photos</span><div class="pb-bg"><div class="pb-fill" style="width:73%;background:#F59E0B"></div></div><span>11/15</span></div>
+          <div class="pb-row"><span>Hours</span><div class="pb-bg"><div class="pb-fill" style="width:100%;background:#10B981"></div></div><span>10/10</span></div>
+          <div class="pb-row"><span>Website</span><div class="pb-bg"><div class="pb-fill" style="width:100%;background:#10B981"></div></div><span>7/7</span></div>
+          <div class="pb-row"><span>Posts</span><div class="pb-bg"><div class="pb-fill" style="width:0%;background:#EF4444"></div></div><span>0/5</span></div>
+        </div>
+        <div class="preview-issues">
+          <div class="pi critical">🔴 No Google Posts — loses freshness signals</div>
+          <div class="pi warning">⚠️ Only 11 photos — add more (aim for 20+)</div>
+          <div class="pi success">✅ Phone, Website, Hours all set</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Features ───────────────────────────────────────────── -->
+<section class="features" id="features">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-badge">Powerful Features</div>
+      <h2 class="section-title">Everything You Need for GBP Auditing</h2>
+      <p class="section-desc">A complete toolkit inspired by GBP Everywhere — but built for serious auditors and agencies.</p>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🔍</div>
+        <h3>Live Google Maps Scraping</h3>
+        <p>Search any keyword on Google Maps and instantly scrape all business profiles — names, ratings, phones, websites, hours, photos, and more.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <h3>100-Point GBP Audit Score</h3>
+        <p>Every business gets a detailed score across 11 categories — from reviews and photos to Google Posts and Q&A sections.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📈</div>
+        <h3>Ranking Factor Analysis</h3>
+        <p>Understand exactly why a business ranks where it does. Get actionable tips for every weak signal — just like GBP Everywhere.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📄</div>
+        <h3>Individual Business Reports</h3>
+        <p>Download a beautiful HTML or JSON report for each business. Share with clients or use for competitor analysis.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📦</div>
+        <h3>Bulk Download (ZIP)</h3>
+        <p>Scan 50 businesses and download all reports at once in JSON format. Perfect for agencies managing multiple clients.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🖥️</div>
+        <h3>LMS Dashboard</h3>
+        <p>Track all your audits in one place. View history, compare scores over time, and manage reports from your web dashboard.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔑</div>
+        <h3>Key-Based Licensing</h3>
+        <p>Simple activation — enter your Pro key in the extension to unlock unlimited scraping. Keys are valid for 30 days.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <h3>Real-Time Progress</h3>
+        <p>Watch as the extension scans each business in real-time, updating the progress bar and adding results as they come in.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── How It Works ────────────────────────────────────────── -->
+<section class="how-it-works" id="how-it-works">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-badge">Simple Process</div>
+      <h2 class="section-title">How Siachen Mark Works</h2>
+    </div>
+
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-num">01</div>
+        <div class="step-icon">🔌</div>
+        <h3>Install Extension</h3>
+        <p>Add Siachen Mark to Chrome from the Web Store. Takes 10 seconds.</p>
+      </div>
+      <div class="step-arrow">→</div>
+      <div class="step-card">
+        <div class="step-num">02</div>
+        <div class="step-icon">🗺️</div>
+        <h3>Search on Google Maps</h3>
+        <p>Open Google Maps and search any keyword like "restaurant Lahore" or "hotel Karachi".</p>
+      </div>
+      <div class="step-arrow">→</div>
+      <div class="step-card">
+        <div class="step-num">03</div>
+        <div class="step-icon">🔍</div>
+        <h3>Click Scan</h3>
+        <p>Open the Siachen Mark sidebar and click Scan. It analyzes all visible businesses automatically.</p>
+      </div>
+      <div class="step-arrow">→</div>
+      <div class="step-card">
+        <div class="step-num">04</div>
+        <div class="step-icon">📥</div>
+        <h3>Download Reports</h3>
+        <p>Get individual HTML/JSON reports per business, or download all at once in bulk.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Pricing ─────────────────────────────────────────────── -->
+<section class="pricing" id="pricing">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-badge">Simple Pricing</div>
+      <h2 class="section-title">Start Free, Upgrade When Ready</h2>
+      <p class="section-desc">No hidden fees. Buy a Pro key, enter it in your extension, done.</p>
+    </div>
+
+    <div class="pricing-grid">
+      <!-- Free -->
+      <div class="price-card">
+        <div class="price-tier">Free</div>
+        <div class="price-amount">
+          <span class="price-currency">PKR</span>
+          <span class="price-num">0</span>
+          <span class="price-period">/forever</span>
+        </div>
+        <ul class="price-features">
+          <li class="included">✅ 10 scraping sessions</li>
+          <li class="included">✅ Up to 10 businesses per scan</li>
+          <li class="included">✅ Full GBP audit score</li>
+          <li class="included">✅ HTML & JSON reports</li>
+          <li class="included">✅ Audit history (30 days)</li>
+          <li class="excluded">❌ Unlimited businesses</li>
+          <li class="excluded">❌ Bulk download (50+ businesses)</li>
+          <li class="excluded">❌ Priority support</li>
+        </ul>
+        <a href="login.html?mode=register" class="btn-price-free">Get Started Free</a>
+      </div>
+
+      <!-- Pro -->
+      <div class="price-card price-featured">
+        <div class="price-badge-top">Most Popular</div>
+        <div class="price-tier">Pro</div>
+        <div class="price-amount">
+          <span class="price-currency">PKR</span>
+          <span class="price-num">Contact Admin</span>
+        </div>
+        <p style="font-size:12px;color:#94A3B8;margin-bottom:16px;">Key valid for 30 days. Renew anytime.</p>
+        <ul class="price-features">
+          <li class="included">✅ Unlimited scraping sessions</li>
+          <li class="included">✅ Up to 50 businesses per scan</li>
+          <li class="included">✅ Full GBP audit score</li>
+          <li class="included">✅ HTML & JSON reports</li>
+          <li class="included">✅ Bulk ZIP download</li>
+          <li class="included">✅ Full audit history</li>
+          <li class="included">✅ Ranking factor analysis</li>
+          <li class="included">✅ Priority support</li>
+        </ul>
+        <a href="login.html?mode=register" class="btn-price-pro">Get Pro Access</a>
+      </div>
+
+      <!-- Agency -->
+      <div class="price-card">
+        <div class="price-tier">Agency</div>
+        <div class="price-amount">
+          <span class="price-currency"></span>
+          <span class="price-num" style="font-size:24px;">Custom</span>
+        </div>
+        <p style="font-size:12px;color:#94A3B8;margin-bottom:16px;">For teams and large-scale auditing needs.</p>
+        <ul class="price-features">
+          <li class="included">✅ Everything in Pro</li>
+          <li class="included">✅ Multi-user access</li>
+          <li class="included">✅ API access</li>
+          <li class="included">✅ White-label reports</li>
+          <li class="included">✅ Dedicated support</li>
+          <li class="included">✅ Custom key management</li>
+        </ul>
+        <a href="mailto:khapluali19@gmail.com" class="btn-price-free">Contact Us</a>
+      </div>
+    </div>
+
+    <!-- Payment Methods -->
+    <div class="payment-methods">
+      <p class="payment-title">Accepted Payment Methods</p>
+      <div class="payment-icons">
+        <div class="payment-method">🏦 Bank Transfer</div>
+        <div class="payment-method">📱 EasyPaisa</div>
+        <div class="payment-method">🌍 International (ACH)</div>
+      </div>
+      <p class="payment-note">After payment, admin will send you a Pro key within 24 hours.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA Banner ──────────────────────────────────────────── -->
+<section class="cta-section">
+  <div class="container">
+    <div class="cta-box">
+      <div class="cta-orb"></div>
+      <h2>Start Auditing Google Maps Today</h2>
+      <p>Free to install. No credit card required. Get 10 free audits instantly.</p>
+      <div class="cta-actions">
+        <a href="#" class="btn-hero-primary" id="btn-cta-ext">🔌 Install Extension Free</a>
+        <a href="login.html" class="btn-hero-secondary">Open Dashboard</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ──────────────────────────────────────────────── -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand-col">
+        <div class="footer-brand">🏔 Siachen Mark</div>
+        <p>Professional Google Business Profile audit and data scraping tool for SEO agencies, marketers, and local businesses.</p>
+        <p style="margin-top:12px;color:#334155;font-size:12px;">📧 khapluali19@gmail.com</p>
+      </div>
+      <div class="footer-links-col">
+        <div class="footer-col-title">Product</div>
+        <a href="#features">Features</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#how-it-works">How It Works</a>
+      </div>
+      <div class="footer-links-col">
+        <div class="footer-col-title">Account</div>
+        <a href="login.html">Login</a>
+        <a href="login.html?mode=register">Register</a>
+        <a href="dashboard.html">Dashboard</a>
+      </div>
+      <div class="footer-links-col">
+        <div class="footer-col-title">Support</div>
+        <a href="mailto:khapluali19@gmail.com">Contact Admin</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Use</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Siachen Mark Data Scraping Tool. All rights reserved.</p>
+      <p>Admin: <a href="admin.html">Admin Panel</a></p>
+    </div>
+  </div>
+</footer>
+
+<script src="js/app.js"></script>
+</body>
+</html>

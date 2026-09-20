@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel — Siachen Mark</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <style>
+    /* Admin-specific additions */
+    .admin-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(245,158,11,.15);
+      border: 1px solid rgba(245,158,11,.4);
+      color: #F59E0B;
+      font-size: 11px; font-weight: 700;
+      padding: 3px 12px; border-radius: 20px;
+      text-transform: uppercase; letter-spacing: 1px;
+      margin-left: 10px;
+    }
+
+    .admin-tabs {
+      display: flex; gap: 4px;
+      background: var(--bg2);
+      border-bottom: 1px solid var(--border);
+      padding: 0 28px;
+      overflow-x: auto;
+    }
+    .admin-tab {
+      padding: 12px 20px;
+      background: none; border: none;
+      color: var(--muted); font-size: 13px; font-weight: 600;
+      cursor: pointer; white-space: nowrap;
+      border-bottom: 2px solid transparent;
+      transition: all .2s;
+    }
+    .admin-tab.active { color: var(--accent2); border-bottom-color: var(--accent); }
+    .admin-tab:hover  { color: var(--text); }
+
+    .admin-page { padding: 28px; display: none; }
+    .admin-page.active { display: block; }
+
+    /* Key Generator */
+    .keygen-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+
+    .keygen-row {
+      display: flex; gap: 12px; align-items: flex-end; flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    .keygen-row .form-group { flex: 1; min-width: 160px; }
+    .form-group { margin-bottom: 0; }
+
+    .generated-key-box {
+      background: var(--bg);
+      border: 1px solid var(--accent);
+      border-radius: var(--radius-sm);
+      padding: 16px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .gk-key { font-size: 18px; font-weight: 800; color: var(--accent2); font-family: monospace; letter-spacing: 2px; }
+    .gk-meta { font-size: 11px; color: var(--muted); }
+
+    .btn-copy {
+      background: var(--accent); border: none;
+      border-radius: var(--radius-sm); color: #fff;
+      padding: 8px 16px; font-size: 12px; font-weight: 600;
+      cursor: pointer; transition: opacity .2s;
+    }
+    .btn-copy:hover { opacity: .85; }
+
+    /* Users Table */
+    .users-table {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .table-header {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1.5fr 1fr 1.2fr;
+      padding: 12px 20px;
+      background: var(--bg-card2);
+      border-bottom: 1px solid var(--border);
+      font-size: 11px; font-weight: 700;
+      color: var(--dim); text-transform: uppercase; letter-spacing: .8px;
+    }
+
+    .table-row {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1.5fr 1fr 1.2fr;
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border);
+      align-items: center;
+      font-size: 13px;
+      transition: background .15s;
+    }
+    .table-row:last-child { border-bottom: none; }
+    .table-row:hover { background: var(--bg-card2); }
+
+    .tier-badge-sm {
+      display: inline-block;
+      padding: 2px 10px; border-radius: 20px;
+      font-size: 10px; font-weight: 700;
+    }
+    .tb-free  { background: #64748B20; color: #94A3B8; border: 1px solid #64748B40; }
+    .tb-paid  { background: #2563EB20; color: #3B82F6; border: 1px solid #2563EB40; }
+    .tb-admin { background: #F59E0B20; color: #F59E0B; border: 1px solid #F59E0B40; }
+
+    .btn-give-key {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--muted);
+      padding: 5px 10px;
+      font-size: 11px; font-weight: 600;
+      cursor: pointer; transition: all .2s;
+    }
+    .btn-give-key:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+    /* Payment Settings */
+    .payment-settings-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 20px;
+    }
+
+    .ps-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+    }
+    .ps-card-title {
+      font-size: 14px; font-weight: 700;
+      color: var(--accent2); margin-bottom: 16px;
+      display: flex; align-items: center; gap: 8px;
+    }
+
+    .ps-field { margin-bottom: 14px; }
+
+    .btn-save-settings {
+      width: 100%;
+      background: linear-gradient(135deg, var(--accent), #1D4ED8);
+      border: none; border-radius: var(--radius-sm);
+      color: #fff; padding: 10px;
+      font-size: 13px; font-weight: 700;
+      cursor: pointer; transition: opacity .2s;
+      margin-top: 8px;
+    }
+    .btn-save-settings:hover { opacity: .85; }
+
+    /* Stats Cards for Admin */
+    .admin-stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .admin-stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      text-align: center;
+    }
+    .asc-icon { font-size: 28px; margin-bottom: 8px; }
+    .asc-val  { font-size: 28px; font-weight: 800; color: var(--accent2); }
+    .asc-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .8px; }
+
+    /* Alert */
+    .admin-alert {
+      padding: 10px 16px; border-radius: var(--radius-sm);
+      font-size: 13px; margin-bottom: 16px;
+    }
+    .alert-success { background: #10B98115; color: #10B981; border: 1px solid #10B98130; }
+    .alert-error   { background: #EF444415; color: #EF4444; border: 1px solid #EF444430; }
+
+    @media (max-width: 1000px) {
+      .payment-settings-grid { grid-template-columns: 1fr; }
+      .admin-stats-row { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 700px) {
+      .table-header, .table-row { grid-template-columns: 2fr 1fr 1fr; }
+      .table-header > *:nth-child(n+4),
+      .table-row > *:nth-child(n+4) { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Sidebar ─────────────────────────────────────────────── -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    <span class="sb-logo">🏔</span>
+    <div>
+      <div class="sb-name">Siachen Mark</div>
+      <div class="sb-sub" style="color:#F59E0B">👑 Admin Panel</div>
+    </div>
+  </div>
+  <nav class="sidebar-nav">
+    <a href="index.html" class="nav-item">
+      <span class="ni-icon">🌐</span> View Website
+    </a>
+    <a href="dashboard.html" class="nav-item">
+      <span class="ni-icon">📊</span> User Dashboard
+    </a>
+    <a href="#" onclick="logout()" class="nav-item">
+      <span class="ni-icon">🚪</span> Logout
+    </a>
+  </nav>
+  <div class="sidebar-footer">
+    <div style="font-size:11px;color:var(--dim);text-align:center">Admin: khapluali19@gmail.com</div>
+  </div>
+</aside>
+
+<!-- ── Main ──────────────────────────────────────────────── -->
+<main class="main-content">
+
+  <!-- Top Bar -->
+  <div class="topbar">
+    <button class="topbar-menu" id="btn-menu">☰</button>
+    <div class="topbar-title">
+      Admin Panel <span class="admin-badge">👑 Admin</span>
+    </div>
+    <div class="topbar-user">
+      <div class="user-avatar">A</div>
+      <div>
+        <div class="user-name">Admin</div>
+        <div class="user-tier" style="color:#F59E0B">Unlimited Access</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Admin Tabs -->
+  <div class="admin-tabs">
+    <button class="admin-tab active" onclick="switchAdminTab('overview')">📊 Overview</button>
+    <button class="admin-tab" onclick="switchAdminTab('requests')">📥 Payment Requests <span id="pending-badge" style="background:#EF4444;color:white;border-radius:10px;padding:2px 8px;font-size:10px;display:none">0</span></button>
+    <button class="admin-tab" onclick="switchAdminTab('users')">👥 Users</button>
+    <button class="admin-tab" onclick="switchAdminTab('keygen')">🔑 Key Generator</button>
+    <button class="admin-tab" onclick="switchAdminTab('payments')">💳 Payment Settings</button>
+  </div>
+
+  <!-- Alert Area -->
+  <div id="admin-alert" class="admin-alert hidden" style="margin:16px 28px 0"></div>
+
+  <!-- ── Overview Tab ──────────────────────────────── -->
+  <div class="admin-page active" id="tab-overview">
+    <div class="page-header">
+      <h1>Admin Overview</h1>
+      <p>Platform statistics and management.</p>
+    </div>
+
+    <div class="admin-stats-row">
+      <div class="admin-stat-card">
+        <div class="asc-icon">👥</div>
+        <div class="asc-val" id="asc-total-users">0</div>
+        <div class="asc-label">Total Users</div>
+      </div>
+      <div class="admin-stat-card">
+        <div class="asc-icon">✨</div>
+        <div class="asc-val" id="asc-pro-users">0</div>
+        <div class="asc-label">Pro Users</div>
+      </div>
+      <div class="admin-stat-card">
+        <div class="asc-icon">🆓</div>
+        <div class="asc-val" id="asc-free-users">0</div>
+        <div class="asc-label">Free Users</div>
+      </div>
+      <div class="admin-stat-card">
+        <div class="asc-icon">🔑</div>
+        <div class="asc-val" id="asc-keys-issued">0</div>
+        <div class="asc-label">Keys Issued</div>
+      </div>
+    </div>
+
+    <!-- Recently Registered -->
+    <div class="section-title-row" style="margin-bottom:14px">
+      <h2 class="section-h2">Recently Registered Users</h2>
+    </div>
+    <div id="recent-users-list"></div>
+  </div>
+
+  <!-- ── Users Tab ─────────────────────────────────── -->
+  <div class="admin-page" id="tab-users">
+    <div class="page-header" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
+      <div>
+        <h1>User Management</h1>
+        <p>View, manage, and upgrade user accounts.</p>
+      </div>
+      <input type="text" id="user-search" class="form-input" placeholder="Search by name or email..." style="max-width:260px" oninput="renderUsersTable()">
+    </div>
+
+    <div class="users-table">
+      <div class="table-header">
+        <span>User</span>
+        <span>Tier</span>
+        <span>Scans</span>
+        <span>Key</span>
+        <span>Expiry</span>
+        <span>Actions</span>
+      </div>
+      <div id="users-tbody"></div>
+    </div>
+  </div>
+
+  <!-- ── Key Generator Tab ──────────────────────────── -->
+  <div class="admin-page" id="tab-keygen">
+    <div class="page-header">
+      <h1>License Key Generator</h1>
+      <p>Generate Pro keys to give to users. Keys expire after 30 days.</p>
+    </div>
+
+    <div class="keygen-box">
+      <h3 style="margin-bottom:16px;font-size:15px">Generate New Key</h3>
+      <div class="keygen-row">
+        <div class="form-group">
+          <label class="form-label">Assign to User (Optional)</label>
+          <select id="assign-user" class="form-input">
+            <option value="">— No assignment —</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Validity (days)</label>
+          <select id="key-validity" class="form-input">
+            <option value="30">30 days</option>
+            <option value="60">60 days</option>
+            <option value="90">90 days</option>
+            <option value="365">365 days</option>
+          </select>
+        </div>
+        <button onclick="generateKey()" class="btn-upgrade" style="padding:10px 24px;white-space:nowrap">⚡ Generate Key</button>
+      </div>
+
+      <div id="generated-key-display" class="hidden">
+        <div class="generated-key-box">
+          <div>
+            <div class="gk-key" id="gk-key-val">—</div>
+            <div class="gk-meta" id="gk-key-meta">—</div>
+          </div>
+          <button class="btn-copy" onclick="copyKey()">📋 Copy</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- All Issued Keys -->
+    <div class="section-title-row" style="margin-bottom:14px">
+      <h2 class="section-h2">Issued Keys</h2>
+    </div>
+    <div class="users-table">
+      <div class="table-header" style="grid-template-columns:2fr 1fr 1fr 1fr 1fr">
+        <span>Key</span>
+        <span>Assigned To</span>
+        <span>Validity</span>
+        <span>Issued</span>
+        <span>Status</span>
+      </div>
+      <div id="keys-tbody"></div>
+    </div>
+  </div>
+
+  <!-- ── Payment Settings Tab ──────────────────────── -->
+  <div class="admin-page" id="tab-payments">
+    <div class="page-header">
+      <h1>Payment Settings</h1>
+      <p>Enter your payment details — users will see these in the dashboard to send you money.</p>
+    </div>
+
+    <div class="payment-settings-grid">
+
+      <!-- Bank Transfer -->
+      <div class="ps-card">
+        <div class="ps-card-title">🏦 Bank Transfer</div>
+        <div class="ps-field">
+          <label class="form-label">Bank Name</label>
+          <input type="text" id="ps-bank-name" class="form-input" placeholder="e.g. HBL / Meezan Bank">
+        </div>
+        <div class="ps-field">
+          <label class="form-label">Account Title</label>
+          <input type="text" id="ps-bank-title" class="form-input" placeholder="Your Name">
+        </div>
+        <div class="ps-field">
+          <label class="form-label">Account Number</label>
+          <input type="text" id="ps-bank-acc" class="form-input" placeholder="0000-0000-0000-0000">
+        </div>
+        <div class="ps-field">
+          <label class="form-label">IBAN</label>
+          <input type="text" id="ps-bank-iban" class="form-input" placeholder="PK00XXXX0000000000000000">
+        </div>
+        <button class="btn-save-settings" onclick="savePaymentSettings('bank')">💾 Save Bank Details</button>
+      </div>
+
+      <!-- EasyPaisa -->
+      <div class="ps-card">
+        <div class="ps-card-title">📱 EasyPaisa</div>
+        <div class="ps-field">
+          <label class="form-label">Account Name</label>
+          <input type="text" id="ps-ep-name" class="form-input" placeholder="Your Name">
+        </div>
+        <div class="ps-field">
+          <label class="form-label">Mobile Number</label>
+          <input type="text" id="ps-ep-number" class="form-input" placeholder="+92 300 0000000">
+        </div>
+        <button class="btn-save-settings" onclick="savePaymentSettings('easypaisa')">💾 Save EasyPaisa Details</button>
+      </div>
+
+      <!-- International / ACH -->
+      <div class="ps-card">
+        <div class="ps-card-title">🌍 International / ACH</div>
+        <div class="ps-field">
+          <label class="form-label">Account Name</label>
+          <input type="text" id="ps-ach-name" class="form-input" placeholder="Your Name">
+        </div>
+        <div class="ps-field">
+          <label class="form-label">Routing Number</label>
+          <input type="text" id="ps-ach-routing" class="form-input" placeholder="e.g. 021000021">
+        </div>
+        <div class="ps-field">
+          <label class="form-label">Account Number</label>
+          <input type="text" id="ps-ach-acc" class="form-input" placeholder="Your Account Number">
+        </div>
+        <div class="ps-field">
+          <label class="form-label">Bank Name</label>
+          <input type="text" id="ps-ach-bank" class="form-input" placeholder="e.g. Bank of America">
+        </div>
+        <button class="btn-save-settings" onclick="savePaymentSettings('ach')">💾 Save ACH Details</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── Payment Requests Tab ────────────────────────── -->
+  <div class="admin-page" id="tab-requests">
+    <div class="page-header" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
+      <div>
+        <h1>Payment Requests</h1>
+        <p>Review uploaded EasyPaisa payment receipts and approve or reject 30-day Unlimited subscriptions.</p>
+      </div>
+      <select id="request-status-filter" class="form-input" style="max-width:180px" onchange="renderPaymentRequestsTable()">
+        <option value="PENDING">Pending Only</option>
+        <option value="ALL">All Requests</option>
+        <option value="APPROVED">Approved</option>
+        <option value="REJECTED">Rejected</option>
+      </select>
+    </div>
+
+    <div class="users-table">
+      <div class="table-header" style="grid-template-columns: 1.5fr 1.5fr 1fr 1fr 1.2fr 1fr 1.5fr;">
+        <span>User</span>
+        <span>Sender & Trx</span>
+        <span>Amount</span>
+        <span>Date</span>
+        <span>Screenshot</span>
+        <span>Status</span>
+        <span>Actions</span>
+      </div>
+      <div id="requests-tbody"></div>
+    </div>
+  </div>
+
+  <!-- Screenshot Viewer Modal -->
+  <div id="screenshot-modal" class="hidden" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.85);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;" onclick="closeScreenshotModal()">
+    <div style="position:relative;max-width:90vw;max-height:90vh;background:#1B2E4B;border-radius:12px;padding:16px;border:1px solid #1E3A5F;" onclick="event.stopPropagation()">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+        <h3 id="modal-title" style="font-size:14px;color:#F1F5F9;margin:0;">Payment Receipt Screenshot</h3>
+        <button onclick="closeScreenshotModal()" style="background:none;border:none;color:#94A3B8;font-size:20px;cursor:pointer;">✕</button>
+      </div>
+      <img id="modal-img" src="" alt="Receipt Screenshot" style="max-width:100%;max-height:75vh;object-fit:contain;border-radius:8px;border:1px solid #1E3A5F;" />
+    </div>
+  </div>
+
+</main>
+
+<script src="js/auth.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>

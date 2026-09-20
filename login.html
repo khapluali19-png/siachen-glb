@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login — Siachen Mark</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0A1628; --bg2: #1B2E4B; --bg3: #152238;
+      --accent: #2563EB; --accent2: #3B82F6;
+      --text: #F1F5F9; --muted: #94A3B8; --dim: #475569;
+      --border: #1E3A5F; --success: #10B981; --error: #EF4444;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .bg-orb {
+      position: fixed; border-radius: 50%; filter: blur(80px); pointer-events: none;
+    }
+    .orb1 { width: 500px; height: 500px; background: #1D4ED8; top: -100px; left: -100px; opacity: .35; }
+    .orb2 { width: 400px; height: 400px; background: #0EA5E9; bottom: -100px; right: -100px; opacity: .15; }
+
+    .auth-container {
+      position: relative; z-index: 1;
+      width: 100%; max-width: 440px;
+      padding: 24px;
+    }
+
+    .auth-brand {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    .auth-logo { font-size: 40px; margin-bottom: 8px; }
+    .auth-name { font-size: 24px; font-weight: 800; color: var(--text); }
+    .auth-sub  { font-size: 13px; color: var(--accent2); letter-spacing: 1px; text-transform: uppercase; }
+
+    .auth-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+      box-shadow: 0 30px 80px rgba(0,0,0,.5);
+    }
+
+    .tab-switch {
+      display: flex;
+      background: var(--bg);
+      border-radius: 8px;
+      padding: 4px;
+      margin-bottom: 28px;
+    }
+    .tab-btn {
+      flex: 1;
+      padding: 8px;
+      border: none;
+      background: none;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      border-radius: 6px;
+      transition: all .2s;
+    }
+    .tab-btn.active {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .form-group { margin-bottom: 18px; }
+    .form-label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .8px;
+      margin-bottom: 6px;
+    }
+    .form-input {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      padding: 11px 14px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      outline: none;
+      transition: border-color .2s;
+    }
+    .form-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(37,99,235,.2); }
+    .form-input::placeholder { color: var(--dim); }
+
+    .btn-submit {
+      width: 100%;
+      background: linear-gradient(135deg, #2563EB, #1D4ED8);
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      padding: 13px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 8px 25px rgba(37,99,235,.4);
+      transition: all .2s;
+      margin-bottom: 16px;
+    }
+    .btn-submit:hover { opacity: .9; transform: translateY(-1px); }
+    .btn-submit:active { transform: translateY(0); }
+
+    .auth-msg {
+      font-size: 13px;
+      padding: 10px 14px;
+      border-radius: 6px;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+    .msg-success { background: #10B98115; color: var(--success); border: 1px solid #10B98130; }
+    .msg-error   { background: #EF444415; color: var(--error); border: 1px solid #EF444430; }
+
+    .auth-footer-link {
+      text-align: center;
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 8px;
+    }
+    .auth-footer-link a {
+      color: var(--accent2);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .divider {
+      display: flex; align-items: center; gap: 12px;
+      margin: 20px 0;
+      font-size: 12px; color: var(--dim);
+    }
+    .divider::before, .divider::after {
+      content: ''; flex: 1;
+      height: 1px; background: var(--border);
+    }
+
+    .home-link {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      font-size: 13px;
+      color: var(--dim);
+      text-decoration: none;
+    }
+    .home-link:hover { color: var(--accent2); }
+
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+<div class="bg-orb orb1"></div>
+<div class="bg-orb orb2"></div>
+
+<div class="auth-container">
+  <div class="auth-brand">
+    <div class="auth-logo">🏔</div>
+    <div class="auth-name">Siachen Mark</div>
+    <div class="auth-sub">GBP Data Scraping Tool</div>
+  </div>
+
+  <div class="auth-card">
+    <!-- Tab Switch -->
+    <div class="tab-switch">
+      <button class="tab-btn active" id="tab-login" onclick="switchTab('login')">Login</button>
+      <button class="tab-btn" id="tab-register" onclick="switchTab('register')">Register</button>
+    </div>
+
+    <!-- Message -->
+    <div id="auth-msg" class="auth-msg hidden"></div>
+
+    <!-- Login Form -->
+    <form id="form-login" onsubmit="handleLogin(event)">
+      <div class="form-group">
+        <label class="form-label">Email Address</label>
+        <input type="email" id="login-email" class="form-input" placeholder="you@example.com" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <input type="password" id="login-pass" class="form-input" placeholder="Your password" required>
+      </div>
+      <button type="submit" class="btn-submit" id="btn-login">Login to Dashboard</button>
+    </form>
+
+    <!-- Register Form -->
+    <form id="form-register" class="hidden" onsubmit="handleRegister(event)">
+      <div class="form-group">
+        <label class="form-label">Full Name</label>
+        <input type="text" id="reg-name" class="form-input" placeholder="Muhammad Ali" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email Address</label>
+        <input type="email" id="reg-email" class="form-input" placeholder="you@example.com" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <input type="password" id="reg-pass" class="form-input" placeholder="Min 6 characters" required minlength="6">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Phone (Optional)</label>
+        <input type="tel" id="reg-phone" class="form-input" placeholder="+92 300 0000000">
+      </div>
+      <button type="submit" class="btn-submit" id="btn-register">Create Free Account</button>
+    </form>
+
+    <div class="auth-footer-link" id="switch-link">
+      Don't have an account? <a href="#" onclick="switchTab('register');return false;">Register Free</a>
+    </div>
+  </div>
+
+  <a href="index.html" class="home-link">← Back to Home</a>
+</div>
+
+<script src="js/auth.js"></script>
+</body>
+</html>

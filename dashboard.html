@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — Siachen Mark</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+
+<!-- ── Sidebar ────────────────────────────────────────────── -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    <span class="sb-logo">🏔</span>
+    <div>
+      <div class="sb-name">Siachen Mark</div>
+      <div class="sb-sub">GBP Scraping Tool</div>
+    </div>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a href="#" class="nav-item active" data-page="overview">
+      <span class="ni-icon">📊</span> Overview
+    </a>
+    <a href="#" class="nav-item" data-page="audits">
+      <span class="ni-icon">🔍</span> My Audits
+    </a>
+    <a href="#" class="nav-item" data-page="reports">
+      <span class="ni-icon">📄</span> Reports
+    </a>
+    <a href="#" class="nav-item" data-page="license">
+      <span class="ni-icon">🔑</span> License Key
+    </a>
+    <a href="#" class="nav-item" data-page="payment">
+      <span class="ni-icon">💳</span> Get Pro Key
+    </a>
+  </nav>
+
+  <div class="sidebar-footer">
+    <button onclick="logout()" class="btn-logout">🚪 Logout</button>
+  </div>
+</aside>
+
+<!-- ── Main Content ──────────────────────────────────────── -->
+<main class="main-content">
+
+  <!-- Top Bar -->
+  <div class="topbar">
+    <button class="topbar-menu" id="btn-menu">☰</button>
+    <div class="topbar-title" id="page-title">Overview</div>
+    <div class="topbar-user">
+      <div class="user-avatar" id="user-avatar">U</div>
+      <div>
+        <div class="user-name" id="user-name">User</div>
+        <div class="user-tier" id="user-tier">Free</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Page: Overview ─────────────────────────── -->
+  <div class="page" id="page-overview">
+    <div class="page-header">
+      <h1>Welcome back, <span id="welcome-name">User</span>! 👋</h1>
+      <p>Your GBP audit dashboard — track scans, reports, and usage.</p>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-icon">🔍</div>
+        <div class="stat-info">
+          <div class="stat-val" id="stat-total-scans">0</div>
+          <div class="stat-label">Total Scans</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">📄</div>
+        <div class="stat-info">
+          <div class="stat-val" id="stat-total-reports">0</div>
+          <div class="stat-label">Reports Generated</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">⚡</div>
+        <div class="stat-info">
+          <div class="stat-val" id="stat-remaining">10</div>
+          <div class="stat-label">Scans Remaining</div>
+        </div>
+      </div>
+      <div class="stat-card tier-card">
+        <div class="stat-icon" id="tier-icon">🆓</div>
+        <div class="stat-info">
+          <div class="stat-val" id="tier-name">Free</div>
+          <div class="stat-label" id="tier-desc">10 scans total</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Free Usage Bar -->
+    <div id="usage-section" class="usage-section">
+      <div class="usage-header">
+        <span>Free Usage</span>
+        <span id="usage-label">0 / 10 scans used</span>
+      </div>
+      <div class="usage-bar-bg">
+        <div class="usage-bar-fill" id="usage-bar" style="width:0%"></div>
+      </div>
+      <div class="usage-tip">
+        Upgrade to Pro for unlimited scraping — <a href="#" onclick="showPage('payment')">Get Pro Key →</a>
+      </div>
+    </div>
+
+    <!-- Upgrade Banner (for free users) -->
+    <div class="upgrade-banner" id="upgrade-banner">
+      <div class="ub-left">
+        <div class="ub-title">🚀 Upgrade to Unlimited</div>
+        <div class="ub-desc">Unlock 30 days of unlimited scraping and full GBP audits for PKR 1,000 via EasyPaisa.</div>
+      </div>
+      <button onclick="showPage('payment')" class="btn-upgrade">Upgrade to Unlimited</button>
+    </div>
+
+    <!-- Payment Request Status Card -->
+    <div id="payment-status-card" class="payment-status-card hidden" style="margin-bottom: 24px; padding: 20px; border-radius: 12px; background: #1B2E4B; border: 1px solid #1E3A5F;">
+      <div id="payment-status-content"></div>
+    </div>
+
+    <!-- Recent Audits -->
+    <div class="section-title-row">
+      <h2 class="section-h2">Recent Audits</h2>
+    </div>
+    <div id="recent-audits" class="recent-audits">
+      <div class="empty-box">
+        <div class="empty-icon">🗺️</div>
+        <p>No audits yet. Install the extension and start scanning Google Maps!</p>
+        <a href="#" class="btn-primary-sm" id="btn-install-dash">Install Extension</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Page: Audits ────────────────────────────── -->
+  <div class="page hidden" id="page-audits">
+    <div class="page-header">
+      <h1>My Audits</h1>
+      <p>Full history of all your GBP audit scans.</p>
+    </div>
+    <div id="audits-list" class="audits-list">
+      <div class="empty-box">
+        <div class="empty-icon">📋</div>
+        <p>No audits found. Start scanning from the Chrome Extension on Google Maps.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Page: Reports ───────────────────────────── -->
+  <div class="page hidden" id="page-reports">
+    <div class="page-header">
+      <h1>My Reports</h1>
+      <p>Download and view your saved audit reports.</p>
+    </div>
+    <div id="reports-list" class="reports-list">
+      <div class="empty-box">
+        <div class="empty-icon">📄</div>
+        <p>No reports saved yet. Audits from your extension will appear here.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Page: License Key ────────────────────────── -->
+  <div class="page hidden" id="page-license">
+    <div class="page-header">
+      <h1>License Key</h1>
+      <p>Activate your Pro key to unlock unlimited scraping.</p>
+    </div>
+
+    <div class="license-box">
+      <div class="lb-status" id="lb-status">
+        <div class="lb-tier-icon" id="lb-tier-icon">🆓</div>
+        <div>
+          <div class="lb-tier-name" id="lb-tier-name">Free Tier</div>
+          <div class="lb-tier-desc" id="lb-tier-desc">10 scans per month included</div>
+        </div>
+      </div>
+
+      <div class="lb-form">
+        <label class="form-label">Enter Pro License Key</label>
+        <div class="lb-input-row">
+          <input type="text" id="key-input" class="form-input" placeholder="SM-XXXXX-XXXXX">
+          <button id="btn-activate-key" class="btn-activate">Activate</button>
+        </div>
+        <div id="key-msg" class="key-msg hidden"></div>
+        <p class="lb-note">Your key will be activated in both this dashboard and your Chrome Extension. Keys expire after 30 days.</p>
+      </div>
+
+      <div class="lb-info-grid">
+        <div class="lb-info-item">
+          <div class="li-label">Current Key</div>
+          <div class="li-val" id="current-key">—</div>
+        </div>
+        <div class="lb-info-item">
+          <div class="li-label">Expiry Date</div>
+          <div class="li-val" id="key-expiry">—</div>
+        </div>
+        <div class="lb-info-item">
+          <div class="li-label">Tier</div>
+          <div class="li-val" id="key-tier">Free</div>
+        </div>
+        <div class="lb-info-item">
+          <div class="li-label">Days Left</div>
+          <div class="li-val" id="key-days">—</div>
+        </div>
+      </div>
+
+      <a href="#" onclick="showPage('payment')" class="btn-get-key">🛒 Buy a Pro Key</a>
+    </div>
+  </div>
+
+  <!-- ── Page: Payment / Get Pro ──────────────────── -->
+  <div class="page hidden" id="page-payment">
+    <div class="page-header">
+      <h1>Upgrade to Unlimited Plan</h1>
+      <p>Transfer payment via EasyPaisa and submit your transaction screenshot below for admin approval.</p>
+    </div>
+
+    <div class="payment-page-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+
+      <!-- EasyPaisa Account Details & Instructions -->
+      <div class="payment-methods-box" style="background: #1B2E4B; border: 1px solid #1E3A5F; border-radius: 12px; padding: 24px;">
+        <h2 class="pm-title" style="margin-bottom: 16px; font-size: 18px; color: #F1F5F9; display: flex; align-items: center; gap: 8px;">
+          <span>📱</span> EasyPaisa Account Details
+        </h2>
+
+        <div style="background: #0F1E33; border: 1px solid #1E3A5F; border-radius: 8px; padding: 18px; margin-bottom: 20px;">
+          <div style="display:flex; justify-size:space-between; margin-bottom: 10px; font-size: 14px;">
+            <span style="color:#94A3B8;">Plan:</span>
+            <strong style="color:#3B82F6;">UNLIMITED PLAN (30 Days)</strong>
+          </div>
+          <div style="display:flex; justify-size:space-between; margin-bottom: 10px; font-size: 14px;">
+            <span style="color:#94A3B8;">Amount:</span>
+            <strong style="color:#10B981; font-size: 16px;">PKR 1,000</strong>
+          </div>
+          <div style="display:flex; justify-size:space-between; margin-bottom: 10px; font-size: 14px;">
+            <span style="color:#94A3B8;">Account Name:</span>
+            <strong id="ep-acc-name" style="color:#F1F5F9;">Basharat Ali</strong>
+          </div>
+          <div style="display:flex; justify-size:space-between; font-size: 14px;">
+            <span style="color:#94A3B8;">Account Number:</span>
+            <strong id="ep-acc-num" style="color:#F1F5F9; font-size: 16px; letter-spacing: 0.5px;">03555380636</strong>
+          </div>
+        </div>
+
+        <div style="background: rgba(37,99,235,0.1); border: 1px solid rgba(37,99,235,0.3); border-radius: 8px; padding: 16px;">
+          <h4 style="color:#3B82F6; margin-bottom: 8px; font-size: 13px; text-transform: uppercase;">Payment Instructions</h4>
+          <p id="ep-instructions" style="color:#94A3B8; font-size: 13px; line-height: 1.5;">
+            Transfer PKR 1,000 via EasyPaisa to Basharat Ali (03555380636). Take a screenshot of the transaction receipt and submit it on the right form along with your Transaction/Reference ID.
+          </p>
+        </div>
+      </div>
+
+      <!-- Payment Submission Form -->
+      <div class="pro-plan-box" style="background: #1B2E4B; border: 1px solid #1E3A5F; border-radius: 12px; padding: 24px;">
+        <h2 style="font-size: 18px; color: #F1F5F9; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+          <span>📤</span> Submit Payment Proof
+        </h2>
+
+        <div id="payment-form-msg" class="auth-msg hidden" style="margin-bottom: 16px;"></div>
+
+        <form id="form-payment-request" onsubmit="handlePaymentSubmit(event)">
+          <div class="form-group" style="margin-bottom: 14px;">
+            <label class="form-label" style="display:block; font-size: 12px; color:#94A3B8; font-weight:600; margin-bottom: 6px; text-transform:uppercase;">Payment Sender Name</label>
+            <input type="text" id="pay-sender-name" class="form-input" placeholder="e.g. Muhammad Ali" required style="width:100%; padding: 10px 12px; background:#0F1E33; border:1px solid #1E3A5F; border-radius:6px; color:#fff;">
+          </div>
+
+          <div class="form-group" style="margin-bottom: 14px;">
+            <label class="form-label" style="display:block; font-size: 12px; color:#94A3B8; font-weight:600; margin-bottom: 6px; text-transform:uppercase;">Transaction / Reference ID</label>
+            <input type="text" id="pay-trx-id" class="form-input" placeholder="e.g. 03928172645" required style="width:100%; padding: 10px 12px; background:#0F1E33; border:1px solid #1E3A5F; border-radius:6px; color:#fff;">
+          </div>
+
+          <div class="form-group" style="margin-bottom: 14px;">
+            <label class="form-label" style="display:block; font-size: 12px; color:#94A3B8; font-weight:600; margin-bottom: 6px; text-transform:uppercase;">Payment Date</label>
+            <input type="date" id="pay-date" class="form-input" required style="width:100%; padding: 10px 12px; background:#0F1E33; border:1px solid #1E3A5F; border-radius:6px; color:#fff;">
+          </div>
+
+          <div class="form-group" style="margin-bottom: 20px;">
+            <label class="form-label" style="display:block; font-size: 12px; color:#94A3B8; font-weight:600; margin-bottom: 6px; text-transform:uppercase;">Payment Screenshot (JPG, PNG, WEBP, Max 5MB)</label>
+            <input type="file" id="pay-screenshot" accept=".jpg,.jpeg,.png,.webp" required style="width:100%; padding: 8px 12px; background:#0F1E33; border:1px solid #1E3A5F; border-radius:6px; color:#94A3B8; font-size:12px;">
+          </div>
+
+          <button type="submit" class="btn-submit" id="btn-submit-payment" style="width:100%; padding: 12px; background: linear-gradient(135deg, #2563EB, #1D4ED8); border:none; border-radius:8px; color:white; font-weight:700; cursor:pointer;">
+            Submit Payment for Verification
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<script src="js/auth.js"></script>
+<script src="js/dashboard.js"></script>
+</body>
+</html>

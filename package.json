@@ -1,0 +1,10 @@
+{
+  "name": "siachen-mark-static",
+  "version": "1.0.0",
+  "description": "Static HTML marketing pages for Siachen Mark. The actual Next.js app is in ../web/",
+  "private": true,
+  "note": "This folder contains static HTML/CSS/JS files. The real backend+frontend Next.js project is located at F:\\Siachen mark office\\web\\",
+  "scripts": {
+    "info": "echo 'The real Next.js app is in ../web/ — run: cd ../web && npm run dev'"
+  }
+}
