@@ -350,10 +350,17 @@ function setInputVal(id, val) {
   if (el) el.value = val;
 }
 
+// ── API Base Helper ─────────────────────────────────────────
+function getApiBase() {
+  if (window.location.origin.includes(':3000')) return '';
+  if (window.location.origin.includes('localhost') || window.location.origin.includes('127.0.0.1')) return 'http://localhost:3000';
+  return 'https://siachen-mark.vercel.app';
+}
+
 // ── Payment Requests Management ───────────────────────────
 async function getAdminToken() {
   let token = localStorage.getItem('sm_token');
-  const API_BASE = window.location.origin.includes(':3000') ? '' : 'http://localhost:3000';
+  const API_BASE = getApiBase();
   if (!token) {
     try {
       const res = await fetch(`${API_BASE}/api/extension/auth`, {
@@ -378,7 +385,7 @@ async function renderPaymentRequestsTable() {
   if (!container) return;
 
   const statusFilter = document.getElementById('request-status-filter')?.value || 'PENDING';
-  const API_BASE = window.location.origin.includes(':3000') ? '' : 'http://localhost:3000';
+  const API_BASE = getApiBase();
   const token = await getAdminToken();
 
   container.innerHTML = `<div style="padding:24px;text-align:center;color:var(--muted)">Loading payment requests...</div>`;
@@ -446,7 +453,7 @@ async function updatePendingBadge(requests) {
   if (!badge) return;
 
   if (!requests) {
-    const API_BASE = window.location.origin.includes(':3000') ? '' : 'http://localhost:3000';
+    const API_BASE = getApiBase();
     const token = await getAdminToken();
     try {
       const res = await fetch(`${API_BASE}/api/admin/payments?status=PENDING`, {
@@ -483,7 +490,7 @@ function closeScreenshotModal() {
 
 async function approvePaymentRequest(id) {
   if (!confirm('Approve this payment request and activate Unlimited subscription for 30 days?')) return;
-  const API_BASE = window.location.origin.includes(':3000') ? '' : 'http://localhost:3000';
+  const API_BASE = getApiBase();
   const token = await getAdminToken();
 
   try {
@@ -505,7 +512,7 @@ async function rejectPaymentRequest(id) {
   const reason = prompt('Reason for rejection (optional):', 'Invalid transaction receipt or unverified payment.');
   if (reason === null) return;
 
-  const API_BASE = window.location.origin.includes(':3000') ? '' : 'http://localhost:3000';
+  const API_BASE = getApiBase();
   const token = await getAdminToken();
 
   try {

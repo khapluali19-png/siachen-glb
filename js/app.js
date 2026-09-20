@@ -26,13 +26,15 @@ function setupNavbar() {
 
 // ── Install Extension Buttons ─────────────────────────────
 function setupInstallButtons() {
-  // All buttons that trigger "install extension"
-  const installBtns = document.querySelectorAll('#btn-install-ext, #btn-cta-ext, #btn-install-dash');
+  const downloadUrl = 'https://siachen-mark.vercel.app/downloads/siachen-mark-extension.zip';
+  const installBtns = document.querySelectorAll('#btn-install-ext, #btn-cta-ext, #btn-install-dash, #btn-install-ext-dash');
   installBtns.forEach(btn => {
     if (!btn) return;
+    btn.setAttribute('href', downloadUrl);
+    btn.setAttribute('target', '_blank');
     btn.addEventListener('click', (e) => {
       e.preventDefault();
-      alert('🏔 Siachen Mark Extension\n\nTo install:\n1. Open Chrome and go to chrome://extensions\n2. Enable "Developer Mode" (top right)\n3. Click "Load unpacked"\n4. Select the "extension" folder from your Siachen Mark project\n\nOr contact admin for the Chrome Web Store link.');
+      window.location.href = downloadUrl;
     });
   });
 }

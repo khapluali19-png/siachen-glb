@@ -121,11 +121,18 @@ function setupMobileMenu() {
   }
 }
 
+// ── API Base Helper ─────────────────────────────────────────
+function getApiBase() {
+  if (window.location.origin.includes(':3000')) return '';
+  if (window.location.origin.includes('localhost') || window.location.origin.includes('127.0.0.1')) return 'http://localhost:3000';
+  return 'https://siachen-mark.vercel.app';
+}
+
 // ── Overview ──────────────────────────────────────────────
 async function syncUserWithBackend() {
   const token = localStorage.getItem('sm_token');
   if (!token) return;
-  const API_BASE = window.location.origin.includes(':3000') ? '' : 'http://localhost:3000';
+  const API_BASE = getApiBase();
   try {
     const res = await fetch(`${API_BASE}/api/user/me`, {
       headers: { 'Authorization': `Bearer ${token}` }
@@ -397,7 +404,7 @@ async function fetchPaymentRequestStatus() {
   const content = document.getElementById('payment-status-content');
   if (!card || !content) return;
 
-  const API_BASE = window.location.origin.includes(':3000') ? '' : 'http://localhost:3000';
+  const API_BASE = getApiBase();
 
   try {
     const res = await fetch(`${API_BASE}/api/user/payment/request`, {
@@ -470,7 +477,7 @@ async function renderPaymentPage() {
   const epNum  = document.getElementById('ep-acc-num');
   const epInst = document.getElementById('ep-instructions');
 
-  const API_BASE = window.location.origin.includes(':3000') ? '' : 'http://localhost:3000';
+  const API_BASE = getApiBase();
 
   try {
     const res = await fetch(`${API_BASE}/api/payment/settings`);
@@ -499,7 +506,7 @@ async function handlePaymentSubmit(e) {
   const fileInput = document.getElementById('pay-screenshot');
   const btn = document.getElementById('btn-submit-payment');
 
-  const API_BASE = window.location.origin.includes(':3000') ? '' : 'http://localhost:3000';
+  const API_BASE = getApiBase();
 
   if (!fileInput.files || fileInput.files.length === 0) {
     showPaymentMsg('❌ Please select a payment screenshot.', 'error');
